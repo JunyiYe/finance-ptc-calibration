@@ -1,0 +1,10 @@
+# Tested environment: Python 3.12, CUDA 12.8
+torch>=2.8
+transformers>=4.57,<5
+llmcompressor>=0.10
+datasets>=4.0
+accelerate>=1.10
+numpy
+scipy
+matplotlib
+openai>=2.0   # DeepSeek-compatible client, used only by scripts/llm_judgement/
