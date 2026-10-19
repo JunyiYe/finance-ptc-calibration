@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+nohup.out
+
+# generated locally by the eval/analysis pipeline
+experiments/
