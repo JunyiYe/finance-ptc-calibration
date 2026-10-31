@@ -11,7 +11,10 @@ from transformers import AutoModelForCausalLM, AutoProcessor, AutoTokenizer
 
 from llmcompressor import oneshot
 from llmcompressor.modifiers.quantization import QuantizationModifier
-from llmcompressor.modifiers.transform.awq import AWQModifier
+try:  # llm-compressor >= 0.11
+    from llmcompressor.modifiers.transform.awq import AWQModifier
+except ImportError:  # llm-compressor <= 0.10
+    from llmcompressor.modifiers.awq import AWQModifier
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model-id", default="meta-llama/Meta-Llama-3.1-8B-Instruct")

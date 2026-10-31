@@ -35,13 +35,18 @@ OUT = "experiments/results/analysis/perplexity_Llama-3.1-8B-Instruct"
 CONFIGS = [("bf16", BASE), ("rtn_w4a16", f"{MODEL_DIR}/Meta-Llama-3.1-8B-Instruct-rtn-w4a16"),
            ("sparsegpt_unstructured_c3", f"{MODEL_DIR}/Meta-Llama-3.1-8B-Instruct-sparsegpt-unstructured-c3"),
            ("wanda_4of8_c3", f"{MODEL_DIR}/Meta-Llama-3.1-8B-Instruct-wanda-4of8-c3")]
+_listed = {name for name, _ in CONFIGS}  # the two pruning-c3 configs above come first
 for meth_key, meth_dir in [("gptq_w4a16", "gptq-w4a16"),
                            ("awq_w4a16", "awq-w4a16"),
                            ("smoothquant_w8a8", "smoothquant-w8a8"),
                            ("sparsegpt_unstructured", "sparsegpt-unstructured"),
                            ("wanda_4of8", "wanda-4of8")]:
     for c in ["c1", "c2", "c3"]:
-        CONFIGS.append((f"{meth_key}_{c}",
+        name = f"{meth_key}_{c}"
+        if name in _listed:
+            continue
+        _listed.add(name)
+        CONFIGS.append((name,
                         f"{MODEL_DIR}/Meta-Llama-3.1-8B-Instruct-{meth_dir}-{c}"))
 
 

@@ -1,7 +1,7 @@
 # Tested environment: Python 3.12, CUDA 12.8
 torch>=2.8
 transformers>=4.57,<5
-llmcompressor>=0.10
+llmcompressor>=0.10,<0.15   # 0.15 removed the SparseGPT/Wanda pruning modifiers
 datasets>=4.0
 accelerate>=1.10
 numpy

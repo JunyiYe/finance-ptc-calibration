@@ -78,6 +78,10 @@ def main():
     Q = load_points("Qwen3-8B")
     B = load_points("Llama-3.1-70B-Instruct")
     allp = L + Q
+    if not allp:
+        raise SystemExit(
+            "no scores found under experiments/results/ — download the released "
+            "results into experiments/ first (see README, 'Released data & models')")
     rho = spearman([p[0] for p in allp], [p[1] for p in allp])
     print(f"n={len(allp)}, Spearman rho={rho:.3f}")
 

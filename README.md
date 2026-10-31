@@ -71,13 +71,15 @@ pip install -r requirements.txt
 python scripts/quantization/gptq_w4a16.py --calib-path data/calibration_datasets/c3_finmix.jsonl
 
 # 2. Evaluate the compressed model on FinQA (full test set, included in data/)
+#    The <config>_<model>_<task>.json naming is what the analysis scripts expect.
+OUT=experiments/results/Llama-3.1-8B-Instruct/gptq_w4a16_c3_Llama-3.1-8B-Instruct_t5.json
 python scripts/evaluation/eval_t5_finqa.py \
     --model data/models/Meta-Llama-3.1-8B-Instruct-gptq-w4a16-c3 \
-    --output results/gptq_c3_t5.json
+    --output $OUT
 
 # 3. Score the free-form numerical answers with the LLM judge
 export DEEPSEEK_API_KEY=...
-python scripts/llm_judgement/adjudicate_t5_finqa.py --input results/gptq_c3_t5_detailed.json
+python scripts/llm_judgement/adjudicate_t5_finqa.py --input "${OUT%.json}_detailed.json"
 ```
 
 Run everything from the repo root. Scripts use the GPU in

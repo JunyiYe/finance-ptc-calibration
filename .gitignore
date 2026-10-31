@@ -4,5 +4,7 @@ __pycache__/
 *.log
 nohup.out
 
-# generated locally by the eval/analysis pipeline
+# generated locally by the compression / eval / analysis pipeline
 experiments/
+data/models/
+data/raw_datasets/

@@ -10,7 +10,10 @@ from datasets import Dataset
 from transformers import AutoModelForCausalLM, AutoProcessor, AutoTokenizer
 
 from llmcompressor import oneshot
-from llmcompressor.modifiers.gptq import GPTQModifier
+try:  # llm-compressor >= 0.11
+    from llmcompressor.modifiers.gptq import GPTQModifier
+except ImportError:  # llm-compressor <= 0.10
+    from llmcompressor.modifiers.quantization import GPTQModifier
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model-id", default="meta-llama/Meta-Llama-3.1-8B-Instruct")
