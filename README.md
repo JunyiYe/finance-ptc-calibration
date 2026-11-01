@@ -144,6 +144,11 @@ The pipeline runs in four stages, in the order the paper's tables need them:
    per model covers the paper's grid: `run_llama8b_quantize_all.sh`,
    `run_qwen3_8b_quantize_all.sh` and `run_llama70b_quantize_all.sh`, plus
    `run_gptq_seed_robustness.sh` (both corpora rebuilt under seeds 43/44).
+   The released results also contain the SparseGPT and Wanda seed variants
+   (WikiText re-drawn under seeds 43/44, tasks T1/T3/T4/T5/T7/T8); those have
+   no sweep of their own — run the method script on the seed corpus and then
+   the per-task eval scripts, e.g.
+   `python scripts/quantization/sparsegpt_unstructured.py --calib-path data/calibration_datasets/c1s43_wikitext_seed43.jsonl`.
 2. **Evaluate** (`scripts/evaluation/`). `eval_t<N>_<task>.py` evaluates one
    model on one task and writes a metrics JSON plus a `_detailed.json` with
    per-sample outputs. `run_llama8b_all_tasks.sh` sweeps the full 8B paper
