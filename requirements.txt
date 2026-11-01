@@ -1,7 +1,10 @@
 # Tested environment: Python 3.12, CUDA 12.8
 torch>=2.8
 transformers>=4.57,<5
-llmcompressor>=0.10,<0.15   # 0.15 removed the SparseGPT/Wanda pruning modifiers
+# the released models were produced with llm-compressor main @ e69a2501
+# (version string 0.10.1.dev166, 2026-05-25); 0.11.0 is the closest published
+# release, and 0.15 removed the SparseGPT/Wanda pruning modifiers
+llmcompressor>=0.11,<0.15
 datasets>=4.0
 accelerate>=1.10
 numpy

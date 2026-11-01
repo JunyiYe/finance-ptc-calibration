@@ -187,6 +187,9 @@ The pipeline runs in four stages, in the order the paper's tables need them:
 - The raw training splits behind FinMix are not redistributed (the built
   corpus ships in `data/calibration_datasets/`); `download_train_splits.py`
   fetches all of them, and each `prepare_c3_t*.py` names its exact source.
+  Some of those sources are gated on the Hub (e.g. `TheFinAI/en-fpb`), so
+  rebuilding FinMix needs `huggingface-cli login` and access granted on the
+  dataset pages; evaluating and compressing need neither.
 
 ## Citation
 
