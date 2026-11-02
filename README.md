@@ -117,7 +117,15 @@ directories and result files are named after them.
   [Financial LLM Compression & Calibration (ICAIF 2026)](https://huggingface.co/collections/jy395/financial-llm-compression-and-calibration-icaif-2026).
   Each model card states its method, calibration corpus and the exact script
   that produced it; download one into `data/models/` and the evaluation
-  scripts pick it up unchanged.
+  scripts pick it up unchanged. Keep the directory name as published — the
+  eval scripts read the model family (llama / qwen / gemma) out of the path
+  and stop with `Unsupported model` if it is renamed to something else.
+  Start from these checkpoints if you want to match the numbers in the paper
+  exactly: `llm-compressor` shuffles the calibration set with an unseeded
+  sampler, so running a compression script twice on the same corpus, version
+  and GPU yields two different checkpoints (~12% of the 4-bit codes differ,
+  worth up to ~1-2 points on a single task). Re-compressing reproduces the
+  paper's findings, not its exact cell values.
 - All evaluation results of the paper grid (summary metrics, per-sample
   records, and the DeepSeek judge verdicts for FinQA/ConvFinQA/TAT-QA) are on
   Hugging Face as a dataset:
