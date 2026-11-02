@@ -12,7 +12,12 @@ from llmcompressor.modifiers.quantization import QuantizationModifier
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model-id", default="meta-llama/Meta-Llama-3.1-8B-Instruct")
+parser.add_argument("--seed", type=int, default=42,
+                    help="seeds torch's global RNG. RTN is data-free and already deterministic; "
+                         "the flag exists so the method scripts share one interface")
 args = parser.parse_args()
+
+torch.manual_seed(args.seed)
 
 MODEL_ID = args.model_id
 is_gemma = "gemma" in MODEL_ID.lower()

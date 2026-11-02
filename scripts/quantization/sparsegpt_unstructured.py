@@ -39,7 +39,14 @@ parser.add_argument("--max-gpu-mem", default=None,
                     help="comma list of per-visible-GPU memory caps, e.g. "
                          "'90GiB,130GiB'; leaves headroom and spills the "
                          "rest to CPU (needed for 70B)")
+parser.add_argument("--seed", type=int, default=42,
+                    help="seeds torch's global RNG. llm-compressor shuffles the calibration "
+                         "corpus with an unseeded RandomSampler, so without this the order "
+                         "of calibration samples -- and therefore the resulting checkpoint -- "
+                         "differs on every run")
 args = parser.parse_args()
+
+torch.manual_seed(args.seed)
 
 MODEL_ID = args.model_id
 CALIB_PATH = args.calib_path

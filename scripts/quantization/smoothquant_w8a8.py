@@ -37,7 +37,14 @@ parser.add_argument("--max-gpu-mem", default=None,
                     help="comma list of per-visible-GPU memory caps; enables "
                          "the big-model path (oneshot save, no probe)")
 parser.add_argument("--smoothing-strength", type=float, default=0.8)
+parser.add_argument("--seed", type=int, default=42,
+                    help="seeds torch's global RNG. llm-compressor shuffles the calibration "
+                         "corpus with an unseeded RandomSampler, so without this the order "
+                         "of calibration samples -- and therefore the resulting checkpoint -- "
+                         "differs on every run")
 args = parser.parse_args()
+
+torch.manual_seed(args.seed)
 
 MODEL_ID = args.model_id
 CALIB_PATH = args.calib_path

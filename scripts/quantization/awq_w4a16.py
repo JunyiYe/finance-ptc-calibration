@@ -21,7 +21,14 @@ parser.add_argument("--model-id", default="meta-llama/Meta-Llama-3.1-8B-Instruct
 parser.add_argument("--calib-path", default="data/calibration_datasets/c1_wikitext.jsonl")
 parser.add_argument("--max-seq-length", type=int, default=2048)
 parser.add_argument("--num-calib-samples", type=int, default=None, help="defaults to the full corpus")
+parser.add_argument("--seed", type=int, default=42,
+                    help="seeds torch's global RNG. llm-compressor shuffles the calibration "
+                         "corpus with an unseeded RandomSampler, so without this the order "
+                         "of calibration samples -- and therefore the resulting checkpoint -- "
+                         "differs on every run")
 args = parser.parse_args()
+
+torch.manual_seed(args.seed)
 
 MODEL_ID = args.model_id
 CALIB_PATH = args.calib_path
