@@ -120,14 +120,6 @@ directories and result files are named after them.
   scripts pick it up unchanged. Keep the directory name as published — the
   eval scripts read the model family (llama / qwen / gemma) out of the path
   and stop with `Unsupported model` if it is renamed to something else.
-  Start from these checkpoints if you want to match the numbers in the paper
-  exactly. `llm-compressor` feeds the calibration corpus through an unseeded
-  sampler, so the compression scripts take `--seed` (default 42) to fix that
-  order: two runs at the same seed are bit-identical, even on different GPUs.
-  The released checkpoints predate the flag, so re-compressing reproduces the
-  paper's findings rather than its exact cell values -- against a released
-  checkpoint, a fresh run differs in ~12% of the 4-bit codes (GPTQ) or ~2% of
-  the pruning mask (SparseGPT), worth about a point on a single task.
 - All evaluation results of the paper grid (summary metrics, per-sample
   records, and the DeepSeek judge verdicts for FinQA/ConvFinQA/TAT-QA) are on
   Hugging Face as a dataset:
